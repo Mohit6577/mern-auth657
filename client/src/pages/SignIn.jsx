@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function SignIn() {
   const [formData,setFormData] = useState({});
   const {loading,error} = useSelector((state) => state.user);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const handleChange = (e) =>{
     setFormData({...formData,[e.target.id]:e.target.value});
   };
@@ -33,8 +35,6 @@ export default function SignIn() {
     } catch (error) {
       dispatch(signInFailure(error));
     }
-    
-
   }
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -44,15 +44,18 @@ export default function SignIn() {
         type="email" 
         placeholder='Email' 
         id='email' 
-        className='bg-slate-100 p-3 rounded-lg'onChange={handleChange} 
+        className='bg-slate-100 p-3 rounded-lg'
+        onChange={handleChange} 
         />
         <input 
         type="password" 
         placeholder='Password' 
         id='password' 
-        className='bg-slate-100 p-3 rounded-lg'onChange={handleChange} 
+        className='bg-slate-100 p-3 rounded-lg'
+        onChange={handleChange} 
         />
-        <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+        <button disabled={loading} 
+        className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Loading...' : 'Sign in'}
         </button>
       </form>
@@ -62,7 +65,7 @@ export default function SignIn() {
         <span className='text-blue-500'>Sign up</span>
         </Link>
       </div>
-      <p className='text-red-700 mt-5'>{error ? error || "Something went wrong!": ""}</p>
+      <p className='text-red-700 mt-5'>{error ? error.message || "Something went wrong!": ""}</p>
     </div>
   )
 }
